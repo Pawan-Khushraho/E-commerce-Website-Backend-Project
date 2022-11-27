@@ -37,3 +37,34 @@ exports.signUp = (req,res)=>{
         res.status(500).send("Something went wrong while creating the User"+err.message)
     });
 }
+
+exports.signIn =(req,res)=>{
+    User.findOne({
+        where:{
+            username : req.body.username
+        }
+    })
+    .then((user) => {
+        if(!user){
+            res.status(404).send({message:"User Not Found"})
+        }
+
+        var isPasswordValid = bcrypt.compareSync(req.body.password,user.password);
+
+        if (!isPasswordValid) {
+            return res.status(401).send({message:"Username or Password is not valid"})
+        }
+
+        //when both the password and username is valid 
+        var token = jwt.sign({id:user.id},secretKeyConfig.secret,{expiresIn:86400})
+
+        res.status(200).send({
+            username : user.username,
+            accessToken : token,
+            message: "Successfully Logged In",
+            success : true
+        })
+    }).catch((err) => {
+        res.status(500).send(err.message)
+    });
+}
