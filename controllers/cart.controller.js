@@ -16,3 +16,40 @@ exports.create = (req,res)=>{
         })
     });
 }
+
+exports.update = (req,res)=>{
+    let cartId = req.params.id;
+    let oldCost = 0; //cost of the items already in the cart.
+
+    Cart.findByPk(cartId)//finding cart in the DB in cart table
+    .then((cart) => {
+        oldCost = cart.cost;
+        Product.findAll({
+            where:{
+                id : req.body.productIds
+            }
+        })
+        .then((items) => {
+            cart.setProducts(items)//adding the items to the cart
+            .then(() => {
+                var newCost =0;
+                cart.getProducts()
+                    .then((products) => {
+                        //add the cost of all the items in the cart
+                        for(let i =0; i<products.length;i++){
+                            newCost = newCost + products[i].cost
+                        }
+
+                        //updating the final cost in the cart table
+                        Cart.update({cost : oldCost+newCost},{where:{id:cartId}})
+                        res.status(200).send({message:"Successfully added to the Cart"})
+
+                    })
+            })
+        }).catch((err) => {
+            res.status(500).send("Something went wrong while fetching products"+err.message)
+        });
+    }).catch((err) => {
+        res.status(500).send("Something went wrong while fetching cart details"+err.message)
+    });
+}
