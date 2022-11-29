@@ -53,3 +53,32 @@ exports.update = (req,res)=>{
         res.status(500).send("Something went wrong while fetching cart details"+err.message)
     });
 }
+
+
+exports.getCart = (req,res)=>{
+    const cartId = req.params.cartId
+    Cart.findByPk(cartId)
+    .then((cart) => {
+        let ProductSelected = [];
+        cart.getProducts()
+        .then((products) => {
+            
+            for(let i =0; i<products.length;i++){
+                ProductSelected.push({
+                    id:products[i].id,
+                    name:products[i].name,
+                    cost:products[i].cost
+                })
+            }
+            res.status(200).send({
+                id:cart.id,
+                ProductSelected:ProductSelected,
+                cost:cart.cost
+            })
+        }).catch((err) => {
+            res.status(500).send("something went wrong "+err.message)
+        });
+    }).catch((err) => {
+        res.status(500).send("something went wrong while getting the cart"+err.message)
+    });
+}

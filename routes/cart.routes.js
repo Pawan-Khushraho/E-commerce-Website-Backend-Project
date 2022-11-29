@@ -7,5 +7,5 @@ module.exports=function(app){
     //api to add to the cart
     app.put("/ecom/api/v1/carts/:id",[verifyToken.verifyToken],cartController.update);
     //api to get the cart
-    //app.get("/ecom/api/v1/carts/:cartId",[verifyToken.verifyToken],cartController.getCart);
+    app.get("/ecom/api/v1/carts/:cartId",[verifyToken.verifyToken],cartController.getCart);
 }
