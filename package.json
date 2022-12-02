@@ -6,10 +6,6 @@
   "scripts": {
     "test": "jest"
   },
-  "jest":{
-    "collectCoverage":true
-  }
-  ,
   "author": "Pawan Kumar",
   "license": "ISC",
   "dependencies": {
