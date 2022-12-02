@@ -4,8 +4,12 @@
   "description": "ecomerce website backend project",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
+  "jest":{
+    "collectCoverage":true
+  }
+  ,
   "author": "Pawan Kumar",
   "license": "ISC",
   "dependencies": {
@@ -16,5 +20,8 @@
     "jsonwebtoken": "^8.5.1",
     "mysql2": "^2.3.3",
     "sequelize": "^6.25.6"
+  },
+  "devDependencies": {
+    "jest": "^29.3.1"
   }
 }

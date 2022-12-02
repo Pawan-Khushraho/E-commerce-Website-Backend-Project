@@ -10,7 +10,7 @@ exports.create = (req,res)=>{
         description: req.body.description
     })
     .then((data) => {
-        res.send(data)
+        res.status(200).send(data)
     }).catch((err) => {
         res.status(500).send("Something Went Wrong while creating category")
     });
