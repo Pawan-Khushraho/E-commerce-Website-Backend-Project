@@ -44,3 +44,21 @@ describe('categoryController.create', () => {
 
      })
  })
+
+ /*  describe('categoryController.findOne', () => { 
+    
+    test('should call categoryController.findOne', async () => { 
+    req.params = {"id":1}
+    
+    const spy = jest.spyOn(categoryModel,'findByPk')
+    .mockImplementation(()=>Promise.resolve(newCategory))
+
+    await categoryController.findOne(req.params.id);
+            
+    expect(res.status).toHaveBeenCalledWith(200)
+    expect(res.send).toHaveBeenCalledWith(newCategory)
+    expect(categoryModel.findByPk).toHaveBeenCalledWith(req.params.id)
+    
+    })
+    
+})  */

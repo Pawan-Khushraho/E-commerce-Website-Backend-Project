@@ -19,7 +19,7 @@ exports.create = (req,res)=>{
 exports.findAll = (req,res)=>{
     Category.findAll()
     .then((data) => {
-        res.send(data)
+        res.status(200).send(data)
     }).catch((err) => {
         res.status(500).send("something went wrong")
     });
